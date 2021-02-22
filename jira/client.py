@@ -4115,6 +4115,15 @@ class JIRA(object):
         )
         return r_json['currentViewConfig']['swimlanes'][0]['id']
 
+    def getBoardColumnNames(self, board_id):
+        """Return the column names for a specified board ID"""
+        r_json = self._get_json(
+            "xboard/config.json?returnDefaultBoard=false&rapidViewId=%s"
+            % (board_id),
+            base=self.AGILE_BASE_URL,
+        )
+        return r_json['currentViewConfig']['columns']
+
     # TODO(ssbarnea): remove sprint_info() method, sprint() method suit the convention more
     def sprint_info(self, board_id, sprint_id):
         """Return the information about a sprint.
