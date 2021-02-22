@@ -4124,6 +4124,15 @@ class JIRA(object):
         )
         return r_json['currentViewConfig']['columns']
 
+    def getControlChartData(self, board_id, swimlane_id):
+        """Return the control chart data for a specific board and swimlane."""
+        r_json = self._get_json(
+            "rapid/charts/controlchart.json?rapidViewId=%s&swimlaneId=%s&_=%s"
+            % (board_id, swimlane_id, int(round(time.time() * 1000))),
+            base=self.AGILE_BASE_URL,
+        )
+        return r_json
+
     # TODO(ssbarnea): remove sprint_info() method, sprint() method suit the convention more
     def sprint_info(self, board_id, sprint_id):
         """Return the information about a sprint.
