@@ -4106,6 +4106,15 @@ class JIRA(object):
             base=self.AGILE_BASE_URL,
         )["contents"]["puntedIssuesEstimateSum"]["value"]
 
+    def getSwimlaneConfigId(self, board_id):
+        """Return the swimlane configuration for a specified board ID"""
+        r_json = self._get_json(
+            "xboard/config.json?returnDefaultBoard=false&rapidViewId=%s"
+            % (board_id),
+            base=self.AGILE_BASE_URL,
+        )
+        return r_json['currentViewConfig']['swimlanes'][0]['id']
+
     # TODO(ssbarnea): remove sprint_info() method, sprint() method suit the convention more
     def sprint_info(self, board_id, sprint_id):
         """Return the information about a sprint.
